@@ -6,32 +6,19 @@ struct node {
 	struct node *next;
 } *head;
 
-/* Function to remove loop. Used by detectAndRemoveLoop() */
 void removeLoop(struct node *, struct node *);
+struct node* findloop();
  
 /* This function detects and removes loop in the list
   If loop was there in the list then it returns 1,
   otherwise returns 0 */
 int detectAndRemoveLoop(struct node *list)
 {
-    struct node  *slow_p = list, *fast_p = list;
- 
-    while (slow_p && fast_p && fast_p->next)
-    {
-        slow_p = slow_p->next;
-        fast_p  = fast_p->next->next;
- 
-        /* If slow_p and fast_p meet at some point then there
-           is a loop */
-        if (slow_p == fast_p)
-        {
-            removeLoop(slow_p, list);
- 
-            /* Return 1 to indicate that loop is found */
-            return 1;
-        }
-    }
- 
+
+	struct node *loop_node;
+	if(loop_node = findloop()) {
+            removeLoop(loop_node, list);
+	} 
     /* Return 0 to indeciate that ther is no loop*/
     return 0;
 }
@@ -70,40 +57,87 @@ void removeLoop(struct node *loop_node, struct node *head)
    ptr2->next = NULL;
 }
 
+
+struct node* findloop() 
+{
+
+	struct node *slow, *fast;
+	slow = fast = head;
+
+	if(!head)
+		printf("Empty List ...!\n");
+
+	while( slow && fast && fast->next ){
+		slow = slow->next;
+		fast = fast->next->next;
+		if(slow == fast) {
+			printf("LOOP DETECTED...!\n");
+			return slow;
+		}
+	}
+			printf("Hurrah...! NO LOOP DETECTED...!\n");
+			return NULL;
+}
+
+int nodesinloop() {
+
+	struct node *loop, *temp;
+	loop = findloop();
+	temp = loop;
+	int count = 0;
+	if(loop) {
+		do {
+		temp = temp->next;
+		count ++;
+		} while(loop != temp);
+	} else {
+			printf("Hurrah...! NO LOOP DETECTED...!\n");
+	}
+	return count;
+
+}
+void makeloop(int node_to) {
+
+	struct node *last, *to;
+	int i;
+	if(node_to > count()) {
+		printf("Invalid node to create loop\n");
+	}
+	last = head;
+	to = head;
+	for(i=1;i<node_to; i++) {
+		to = to->next;
+	}
+	while(last->next) {
+		last = last->next;
+	}
+	last->next = to;
+}
 void append(int num)
 {
 	struct node *temp, *right;
 	temp = (struct node *)malloc(sizeof(struct node));
 	temp->data = num;
 	right = (struct node *)head;
-	while (right->next != head)
+	while (right->next != NULL)
 		right = right->next;
 	right->next = temp;
 	right = temp;
-	right->next = head;
+	right->next = NULL;
 }
 
 void add(int num)
 {
-	struct node *temp, *left;
-	int cnt, i;
+	struct node *temp;
 	temp = (struct node *)malloc(sizeof(struct node));
 	temp->data = num;
 	if (head == NULL) {
 		head = temp;
-		head->next = head;
+		head->next = NULL;
 	} else {
-
-		cnt = count();
-		left = head;
-		for(i=1; i<cnt;i++){
-			left = left->next;
-		}
 		temp->next = head;
 		head = temp;
-		left->next = head;
 	}
-	printf ("in add head is %p, next is %p\n",head,head->next);
 }
 
 void addafter(int num, int loc)
@@ -131,46 +165,28 @@ void insert(int num)
 	if (temp == NULL) {
 		add(num);
 	} else {
-		do {
+		while (temp != NULL) {
 			if (temp->data < num)
 				c++;
 			temp = temp->next;
-		printf ("head is %p, temp is %p\n",head,temp);
-		}while (temp != head);
-		if (c == 0) {
-			printf("Adding number\n");
+		}
+		if (c == 0)
 			add(num);
-		}
-		else if (c < count()) {
-			printf("Adding after %d location\n", c);
+		else if (c < count())
 			addafter(num, ++c);
-		} 
-		else {
-			printf("Appending number\n");
+		else
 			append(num);
-		}
 	}
 }
 
 int delete(int num)
 {
-	struct node *temp, *prev,*left;
-	int cnt,i;
+	struct node *temp, *prev;
 	temp = head;
-	if(!head)
-		return 1;
-	do {
+	while (temp != NULL) {
 		if (temp->data == num) {
 			if (temp == head) {
-
-					cnt = count();
-					left = head;
-					for(i=1; i<cnt;i++){
-							left = left->next;
-					}
-
 				head = temp->next;
-				left->next = head;
 				free(temp);
 				return 1;
 			} else {
@@ -182,7 +198,7 @@ int delete(int num)
 			prev = temp;
 			temp = temp->next;
 		}
-	} while (temp != head);
+	}
 	return 0;
 }
 
@@ -191,29 +207,21 @@ void display(struct node *r)
 	if (r == NULL) {
 		return;
 	}
-	do {
+	while (r != NULL) {
 		printf("%d ", r->data);
 		r = r->next;
-	}while (r != head);
+	}
 	printf("\n");
 }
 
 void deleteall()
 {
-	struct node *temp, *dummy_head;
-
-
-	if (head == NULL) {
-		return;
-	}
-	dummy_head= head;
-	do {
+	struct node *temp;
+	while (head != NULL) {
 		temp = head;
 		head = temp->next;
-		printf ("head is %p, temp is %p\n",head,temp);
 		free(temp);
-	}while (head != dummy_head);
-	head = NULL;
+	}
 	return;
 }
 
@@ -222,17 +230,17 @@ int count()
 	struct node *n;
 	int c = 0;
 	n = head;
-	do {
+	while (n != NULL) {
 		n = n->next;
 		c++;
-	}while (n != head);
+	}
 	return c;
 }
 
 void printreverse(struct node *temp)
 {
 
-	if (temp->next == head) {
+	if (temp->next == NULL) {
 		printf("%d ", temp->data);
 		return;
 	}
@@ -309,9 +317,13 @@ int main()
 		printf("3.Size\n");
 		printf("4.Delete\n");
 		printf("5.Print reverse\n");
-		printf("6.Find and remove loop\n");
+		printf("6.Reverse list using traditional method\n");
 		printf("7.Reverse list using recursive method\n");
-		printf("8.Exit\n");
+		printf("8.create loop\n");
+		printf("9.Check for loop existence\n");
+		printf("10. Find No of nodes in loop\n");
+		printf("11.Remove loop\n");
+		printf("12.Exit\n");
 		printf("Enter your choice : ");
 		if (scanf("%d", &i) <= 0) {
 			printf("Enter only an Integer\n");
@@ -346,14 +358,6 @@ int main()
 						printf("%d not found in the list\n", num);
 				}
 				break;
-			case 8:
-				if (head == NULL)
-					printf("List is Empty\n");
-				else {
-					deleteall();
-				}
-
-				return 0;
 			case 5:
 				if (head == NULL)
 					printf("List is Empty\n");
@@ -363,12 +367,35 @@ int main()
 				}
 				break;
 			case 6:
-				detectAndRemoveLoop(head);
+				reverselist(&head);
 				break;
 
 			case 7:
 				recursiveReverse(&head);
 				break;
+			case 8:
+				printf("Enter the node which last node shoud points to : ");
+				scanf("%d", &num);
+				makeloop(num);
+				break;
+			case 9:
+				findloop();
+				break;	
+			case 10:
+				printf("No of nodes in loop are %d \n", nodesinloop());
+				break;	
+			case 11:
+				detectAndRemoveLoop(head);
+				break;
+			case 12:
+				if (head == NULL)
+					printf("List is Empty\n");
+				else {
+					deleteall();
+				}
+
+				return;
+		
 			default:
 				printf("Invalid option\n");
 			}
