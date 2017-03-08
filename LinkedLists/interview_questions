@@ -1,0 +1,37 @@
+Describe the steps to insert data into a singly linked list.
+	Insert in middle
+	Insert in the beginning
+	Insert in the end
+Explain how to reverse singly link list.
+	A linked list can also be reversed using recursion which eliminates the use of a temporary variable.
+Define circular linked list. 
+Delete middle node of a linked list
+Detect a loop in a linked list
+Find intersection of 2 linked lists
+Remove and append last N elements of linked list to beginning of list.
+	ex. 1->2->3->4->5->6->7->8
+	if N=3, output would be:
+    	  6->7->8->1->2->3->4->5
+Merge two sorted linked lists
+*Reverse every alternate k nodes of a Linked List
+Find nth Node from the end of a Linked List
+*Sum of Two Linked Lists using Stacks
+*LRU Cache Implementation
+	Least Recently Used cache replacement algorithm is a cache replacement strategy by which the least recently accessed page is removed from the cache when a new page is accessed which is not already present in the cache.
+Detect a loop in a linked list and find the node where the loop starts.
+*Convert a sorted Doubly Linked List to Balanced Binary Search Tree
+*Convert a binary tree to doubly linked list
+*Sum of Two Linked Lists using Recursion
+What would you use, a single pointer or double pointer when manipulating elements in a linked list (single, double or generalized) using a function and why ?
+Check if a Singly Linked List is Palindrome
+Findout union of 2 linked lists
+Swap every two nodes in a linked list
+Given two linked lists find if they are making a shape of 'Y' or a shape of 'V'.
+Merge two sorted singly linked lists into one sorted singly linked list.
+Delete the repeated elements in a singly linked list in O(n) time complexity without using extra space. Linked list contains elements in unsorted order P.S. - Sorting is not allowed
+Given only a pointer to a node to be deleted in a singly linked list, how do you delete it.
+*How do you reverse a linked list without using any C pointers?
+How do you find the middle of a linked list? Write a C program to return the middle of a linked list.
+How would you find out if one of the pointers in a linked list is corrupted or not?
+What are the applications that use Linked lists?
+Printing alternative nodes in a linked list using recursive
