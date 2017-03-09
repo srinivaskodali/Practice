@@ -273,7 +273,7 @@ void insert(int key, int num)
 		else if (c < length())
 			insertAfter(oldkey, key, num);
 		else
-			insertLast(key,num);
+			insertLast(key, num);
 	}
 }
 #endif
@@ -291,8 +291,7 @@ main()
 		printf("3.Size\n");
 		printf("4.Delete\n");
 		printf("5.Print reverse\n");
-		printf("6.Reverse list using traditional method\n");
-		printf("7.Exit\n");
+		printf("6.Exit\n");
 		printf("Enter your choice : ");
 		if (scanf("%d", &i) <= 0) {
 			printf("Enter only an Integer\n");
@@ -304,7 +303,7 @@ main()
 				scanf("%d", &key);
 				printf("Enter the number to insert : ");
 				scanf("%d", &num);
-                              insert(key, num);
+				insert(key, num);
 				break;
 			case 2:
 				if (head == NULL) {
@@ -312,7 +311,7 @@ main()
 				} else {
 					printf("Element(s) in the list are : ");
 				}
-                              displayForward();
+				displayForward();
 				break;
 			case 3:
 				printf("Size of the list is %d\n", length());
@@ -324,12 +323,16 @@ main()
 					printf("Enter the key to delete : ");
 					scanf("%d", &num);
 					if (delete(num))
-						printf("%d deleted successfully\n", num);
+						printf
+						    ("%d deleted successfully\n",
+						     num);
 					else
-						printf("%d not found in the list\n", num);
+						printf
+						    ("%d not found in the list\n",
+						     num);
 				}
 				break;
-			case 7:
+			case 6:
 				if (head == NULL)
 					printf("List is Empty\n");
 				else {
@@ -341,12 +344,9 @@ main()
 				if (head == NULL)
 					printf("List is Empty\n");
 				else {
-						displayBackward();
+					displayBackward();
 					printf("\n");
 				}
-				break;
-			case 6:
-//                              reverselist(&head);
 				break;
 			default:
 				printf("Invalid option\n");
